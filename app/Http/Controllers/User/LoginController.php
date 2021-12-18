@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UserLoginRequest;
+use App\Http\Requests\UserRegistrationRequest;
 use App\Models\User;
 
 class LoginController extends Controller
@@ -22,7 +22,7 @@ class LoginController extends Controller
         return response()->json(['response' => $token], 200);
     }
 
-    public function register(UserLoginRequest $request)
+    public function register(UserRegistrationRequest $request)
     {
         $data = $request->validated();
         $data['password'] = bcrypt($request->password);
