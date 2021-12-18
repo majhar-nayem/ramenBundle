@@ -14,6 +14,13 @@ class ProfileResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'phone' => $this->phone,
+            'email' => $this->email,
+            'image' => $this->image ? asset($this->image) : null,
+            'created_at' => $this->created_at
+        ];
     }
 }

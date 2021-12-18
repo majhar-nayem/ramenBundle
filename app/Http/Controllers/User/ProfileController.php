@@ -24,6 +24,6 @@ class ProfileController extends Controller
         }
         Auth::user()->update($data);
 
-        return response()->json(['message' => ['Profile Updated Successfully!']]);
+        return response()->json(['message' => 'Profile Updated Successfully!']);
     }
 }
