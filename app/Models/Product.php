@@ -9,4 +9,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Product extends Model
 {
     use HasFactory, SoftDeletes;
+
+    protected $guarded = [];
+
+    public function productImages()
+    {
+        return $this->hasMany(ProductImage::class);
+    }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\User\LoginController as UserLoginController;
 use App\Http\Controllers\User\ProfileController;
 use Illuminate\Http\Request;
@@ -26,4 +27,11 @@ Route::post('admin/verify', [LoginController::class, 'verifyOTP']);
 Route::group(['middleware' => 'auth:user', 'prefix' => 'user'], function () {
    Route::get('profile', [ProfileController::class, 'index']);
    Route::post('update-profile',[ProfileController::class,'updateProfile']);
+});
+
+Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin'], function () {
+//   Route::get('profile', [ProfileController::class, 'index']);
+//   Route::post('update-profile',[ProfileController::class,'updateProfile']);
+    Route::apiResource('products',ProductController::class);
+    Route::delete('sub-image/{id}',[ProductController::class,'subImageDelete']);
 });

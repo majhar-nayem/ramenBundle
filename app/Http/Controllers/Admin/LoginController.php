@@ -14,7 +14,7 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $this->validate($request, [
-            'phone' => ['required', 'size:11', 'regex:/(01)[0-9]{9}/']
+            'phone' => ['required']
         ]);
 
         $phone = $request->phone;
@@ -69,13 +69,12 @@ class LoginController extends Controller
             return response()->json(['error' => "Invalid Email!"], 422);
         }
         if (Hash::check($request->password, $admin->password)) {
-            $success['token'] = $admin->guard(['admin'])->createToken('admin')->accessToken;
+            $success['token'] = $admin->guard(['admin-web'])->createToken('admin')->accessToken;
             $success['user_id'] = $admin->id;
             $success['name'] = $admin->name;
             $success['email'] = $admin->email;
-            $success['roles'] = $admin->load('roles');
 
-            return response()->json(['success' => $success], 200);
+            return response()->json(['response' => $success], 200);
         }
 
         return response()->json(['error' => "Invalid Email or Password"], 422);
