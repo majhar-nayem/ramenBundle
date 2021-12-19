@@ -10,8 +10,15 @@ class Bundle extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $guarded = [];
+
     public function products()
     {
         return $this->hasMany(Product::class);
+    }
+
+    public function bundleProducts()
+    {
+        return $this->hasMany(BundleProduct::class);
     }
 }

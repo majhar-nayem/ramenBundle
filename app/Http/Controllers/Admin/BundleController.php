@@ -31,14 +31,14 @@ class BundleController extends Controller
      */
     public function store(StoreBundleRequest $request)
     {
-        $data = $request->except('products');
+        $data = $request->only('name','description', 'price');
         $data['slug'] = Str::slug($request->name . ' ' . time());
         if ($request->has('image')) {
             $file_path = Upload::uploadFile($request->image, 'Product');
             $data['image'] = 'storage/' . $file_path;
         }
         $bundle = Bundle::create($data);
-        $bundle->products()->createMany($request->products);
+        $bundle->bundleProducts()->createMany($request->products);
 
         return response()->json(['message' => "Bundle Created Successfully"]);
     }

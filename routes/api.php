@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\BundleController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\User\ProductController as UserProductController;
 use App\Http\Controllers\User\LoginController as UserLoginController;
 use App\Http\Controllers\User\PlaceOrderController;
 use App\Http\Controllers\User\ProfileController;
@@ -25,6 +26,8 @@ Route::post('user/login', [UserLoginController::class, 'login']);
 
 Route::post('admin/login', [LoginController::class, 'emailLogin']);
 Route::post('admin/verify', [LoginController::class, 'verifyOTP']);
+
+Route::get('products',[UserProductController::class,'index']);
 
 Route::group(['middleware' => 'auth:user', 'prefix' => 'user'], function () {
    Route::get('profile', [ProfileController::class, 'index']);

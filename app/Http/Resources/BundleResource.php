@@ -19,7 +19,7 @@ class BundleResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'image' => asset($this->image),
-            'products' => ProductResource::collection($this->products),
+            'products' => ProductResource::collection($this->bundleProducts),
             'price' => $this->price,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
