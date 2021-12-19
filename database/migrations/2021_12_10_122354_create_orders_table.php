@@ -17,6 +17,7 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('bundle_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('coupon_id')->constrained()->cascadeOnDelete();
             $table->float('sub_total');
             $table->float('grand_total');
             $table->text('shipping_address')->nullable();

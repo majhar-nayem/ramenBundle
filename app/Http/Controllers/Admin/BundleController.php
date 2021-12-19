@@ -95,7 +95,7 @@ class BundleController extends Controller
         return response()->json(['message' => "Bundle Deleted Successfully"]);
     }
 
-    function removeBundleProducts($id){
+    public function removeBundleProducts($id){
         $product = BundleProduct::findOrFail($id);
         $product->delete();
 
