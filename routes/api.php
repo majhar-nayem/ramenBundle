@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BundleController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\User\LoginController as UserLoginController;
@@ -34,4 +35,6 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin'], function () {
 //   Route::post('update-profile',[ProfileController::class,'updateProfile']);
     Route::apiResource('products',ProductController::class);
     Route::delete('sub-image/{id}',[ProductController::class,'subImageDelete']);
+    Route::apiResource('bundles', BundleController::class);
+    Route::get('remove-from-bundle/{id}', [BundleController::class, 'removeBundleProducts']);
 });
