@@ -8,6 +8,6 @@ class CalculateGrandTotal
     {
         if (is_null($coupon_id)){
             return $bundle->price;
-        }
+        }else return $bundle->price;
     }
 }

@@ -36,6 +36,7 @@ class PlaceOrderController extends Controller
         $data = $request->validated();
         $bundle = Bundle::findOrFail($request->bundle_id);
         $data['sub_total'] = $bundle->price;
+        $data['user_id'] = Auth::id();
         $data['grand_total'] = (new CalculateGrandTotal())($bundle, $request->coupon_id);
         Order::create($data);
 
