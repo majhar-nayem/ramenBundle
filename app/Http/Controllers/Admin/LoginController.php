@@ -66,7 +66,7 @@ class LoginController extends Controller
         ]);
         $admin = Admin::where('email', $request->email)->first();
         if (is_null($admin)) {
-            return response()->json(['error' => "Invalid Email!"], 422);
+            return response()->json(['error' => "Invalid Email or Password!"], 422);
         }
         if (Hash::check($request->password, $admin->password)) {
             $success['token'] = $admin->guard(['admin-web'])->createToken('admin')->accessToken;
