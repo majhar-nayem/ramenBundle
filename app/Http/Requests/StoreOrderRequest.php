@@ -27,7 +27,7 @@ class StoreOrderRequest extends FormRequest
             'bundle_id' => ['required'],
             'coupon_id' => ['nullable', 'numeric'],
             'billing_address' => ['string'],
-            'shipping_address' => ['string', 'required'],
+            'shipping_address' => ['string'],
         ];
     }
 }
