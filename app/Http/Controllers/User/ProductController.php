@@ -40,7 +40,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = Product::find($id) ?? Product::where('slug', $id)->first();
+        $product = Product::find($id) ?? Product::where('slug', $id)->firstOrFail();
         return new ProductResource($product);
     }
 }
