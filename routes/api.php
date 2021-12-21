@@ -28,6 +28,7 @@ Route::post('admin/login', [LoginController::class, 'emailLogin']);
 Route::post('admin/verify', [LoginController::class, 'verifyOTP']);
 
 Route::get('products',[UserProductController::class,'index']);
+Route::get('products/{id}',[UserProductController::class,'show']);
 
 Route::group(['middleware' => 'auth:user', 'prefix' => 'user'], function () {
    Route::get('profile', [ProfileController::class, 'index']);
