@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\BundleController;
+use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\User\BundleController as PublicBundleController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\ProductController;
@@ -8,7 +9,6 @@ use App\Http\Controllers\User\ProductController as UserProductController;
 use App\Http\Controllers\User\LoginController as UserLoginController;
 use App\Http\Controllers\User\PlaceOrderController;
 use App\Http\Controllers\User\ProfileController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,4 +47,5 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin'], function () {
     Route::delete('sub-image/{id}', [ProductController::class, 'subImageDelete']);
     Route::apiResource('bundles', BundleController::class);
     Route::get('remove-from-bundle/{id}', [BundleController::class, 'removeBundleProducts']);
+    Route::apiResource('coupons', CouponController::class);
 });
