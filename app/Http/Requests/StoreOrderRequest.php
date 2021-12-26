@@ -24,8 +24,8 @@ class StoreOrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'bundle_id' => ['required'],
-            'coupon_id' => ['nullable', 'numeric'],
+            'bundle_id' => ['required', 'exists:bundles,id'],
+            'coupon_id' => ['nullable', 'numeric', 'exists:coupons,id'],
             'billing_address' => ['string'],
             'shipping_address' => ['string'],
         ];
