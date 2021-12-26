@@ -24,11 +24,12 @@ class UpdateCouponRequest extends FormRequest
     public function rules()
     {
         return [
-            'start_at' => 'string',
-            'end_at' => 'string',
+            'start_at' => 'date',
+            'end_at' => ['date', 'after:start_at'],
+            'max_limit' => 'int',
             'user_limit' => 'int',
-            'message' => 'string',
-            'priority' => 'int'
+            'min_order_amount' => 'int',
+            'max_discount_amount' => 'int',
         ];
     }
 }

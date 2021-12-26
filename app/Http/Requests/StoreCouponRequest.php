@@ -24,19 +24,16 @@ class StoreCouponRequest extends FormRequest
     public function rules()
     {
         return [
+            'name' => ['string', 'required'],
             'code' => ['string', 'required', 'unique:coupons'],
-            'type' => ['required', 'in:fixed,percentage'],
             'amount' => ['int', 'required'],
             'start_at' => 'required',
-            'end_at' => 'required',
+            'end_at' => ['required', 'after:start_at'],
             'max_limit' => 'int',
             'user_limit' => 'int',
             'min_order_amount' => 'int',
             'max_discount_amount' => 'int',
-            'discounted_fees' => 'json',
-            'payable_advance' => 'numeric',
-            'message' => 'string',
-            'priority' => 'int'
+            'is_fixed' => ['boolean'],
         ];
     }
 }
