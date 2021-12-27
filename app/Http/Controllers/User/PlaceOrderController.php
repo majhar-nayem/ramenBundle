@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Resources\OrderResource;
 use App\Models\Bundle;
+use App\Models\Coupon;
 use App\Models\Order;
 use App\Services\CalculateGrandTotal;
 use Illuminate\Http\Request;
@@ -20,7 +21,7 @@ class PlaceOrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::where('user_id', Auth::id())->paginate(20);
+        $orders = Order::latest()->where('user_id', Auth::id())->paginate(20);
 
         return OrderResource::collection($orders);
     }
@@ -37,7 +38,8 @@ class PlaceOrderController extends Controller
         $bundle = Bundle::findOrFail($request->bundle_id);
         $data['sub_total'] = $bundle->price;
         $data['user_id'] = Auth::id();
-        $data['grand_total'] = (new CalculateGrandTotal())($bundle, $request->coupon_id);
+        $coupon = Coupon::find($request->coupon_id) ?? Coupon::where('code', $request->coupon_code)->first();
+        $data['grand_total'] = (new CalculateGrandTotal())($bundle, $coupon);
         Order::create($data);
 
         return response()->json(['message' => "Order Created Successfully!"]);
