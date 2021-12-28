@@ -19,7 +19,7 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
-        $orders = Order::orderBy('id', $request->sort_by ?? "DESC")->get();
+        $orders = Order::orderBy('id', $request->sort_by ?? "DESC")->paginate(25);
         return OrderResource::collection($orders);
     }
 
