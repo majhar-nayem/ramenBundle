@@ -24,7 +24,6 @@ class StoreCouponRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['string', 'required'],
             'code' => ['string', 'required', 'unique:coupons'],
             'amount' => ['int', 'required'],
             'start_at' => 'required',
