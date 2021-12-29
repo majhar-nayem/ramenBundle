@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\User\BundleController as PublicBundleController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\User\PaymentController;
 use App\Http\Controllers\User\ProductController as UserProductController;
 use App\Http\Controllers\User\LoginController as UserLoginController;
 use App\Http\Controllers\User\PlaceOrderController;
@@ -39,6 +40,8 @@ Route::group(['middleware' => 'auth:user', 'prefix' => 'user'], function () {
     Route::get('profile', [ProfileController::class, 'index']);
     Route::post('update-profile', [ProfileController::class, 'updateProfile']);
     Route::apiResource('orders', PlaceOrderController::class);
+
+    Route::post('pay', [PaymentController::class, 'pay']);
 });
 
 Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin'], function () {

@@ -39,12 +39,12 @@ class Handler extends ExceptionHandler
             //
         });
 
-        $this->renderable(function (NotFoundHttpException $e, $request) {
-            if ($request->is('v1/*')) {
-                return response()->json([
-                    'error' => 'Data Not Found!'
-                ], 404);
-            }
-        });
+//        $this->renderable(function (NotFoundHttpException $e, $request) {
+//            if ($request->is('v1/*')) {
+//                return response()->json([
+//                    'error' => 'Data Not Found!'
+//                ], 404);
+//            }
+//        });
     }
 }
