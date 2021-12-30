@@ -28,6 +28,7 @@ class OrderResource extends JsonResource
             'state' => $this->state,
             'country' => $this->country,
             'zipcode' => $this->zipcode,
+            'status' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];
