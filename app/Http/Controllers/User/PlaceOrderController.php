@@ -40,9 +40,12 @@ class PlaceOrderController extends Controller
         $data['user_id'] = Auth::id();
         $coupon = Coupon::find($request->coupon_id) ?? Coupon::where('code', $request->coupon_code)->first();
         $data['grand_total'] = (new CalculateGrandTotal())($bundle, $coupon);
-        Order::create($data);
+       $order = Order::create($data);
 
-        return response()->json(['message' => "Order Created Successfully!"]);
+        return response()->json([
+            'message' => "Order Created Successfully!",
+            'order' => $order
+        ]);
     }
 
     /**
