@@ -23,6 +23,11 @@ class OrderResource extends JsonResource
             'grand_total' => $this->grand_total,
             'shipping_address' => $this->shipping_address,
             'billing_address' => $this->billing_address,
+            'address' => $this->address,
+            'city' => $this->city,
+            'state' => $this->state,
+            'country' => $this->country,
+            'zipcode' => $this->zipcode,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];
