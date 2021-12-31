@@ -9,6 +9,7 @@ use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Traits\Upload;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
@@ -18,11 +19,15 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::latest()->paginate();
+        if ($request->page = 0) {
+            $product = Product::latest()->get();
+        } else {
+            $product = Product::latest()->paginate(20);
+        }
 
-        return ProductResource::collection($products);
+        return ProductResource::collection($product);
     }
 
     /**

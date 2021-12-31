@@ -14,9 +14,13 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index()
+    public function index(Request $request)
     {
-        $product = Product::paginate(20);
+        if ($request->page = 0) {
+            $product = Product::latest()->get();
+        } else {
+            $product = Product::paginate(20);
+        }
 
         return ProductResource::collection($product);
     }
@@ -24,7 +28,7 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -35,7 +39,7 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return ProductResource
      */
     public function show($id)
