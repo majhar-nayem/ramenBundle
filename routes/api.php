@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\BundleController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\StatsController;
 use App\Http\Controllers\User\BundleController as PublicBundleController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\ProductController;
@@ -57,4 +58,5 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin'], function () {
     Route::apiResource('coupons', CouponController::class);
 
     Route::apiResource('orders', OrderController::class);
+    Route::get('stats', [StatsController::class, 'index']);
 });
