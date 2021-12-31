@@ -40,4 +40,9 @@ class PaymentController extends Controller
 
         return $response;
     }
+
+    public function response(Request $request)
+    {
+
+    }
 }

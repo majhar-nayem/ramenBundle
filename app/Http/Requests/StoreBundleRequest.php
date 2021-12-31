@@ -28,7 +28,7 @@ class StoreBundleRequest extends FormRequest
             'description' => ['required', 'string'],
             'image' => ['required', 'mimes:png,jpg,jpeg'],
             'price' => ['required', 'numeric'],
-            'products' => ['array', 'required'],
+            'products' => ['array'],
             'products.*.product_id' => ['required'],
             'products.*.qty' => ['required','int'],
         ];

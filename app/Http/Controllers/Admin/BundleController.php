@@ -31,14 +31,16 @@ class BundleController extends Controller
      */
     public function store(StoreBundleRequest $request)
     {
-        $data = $request->only('name','description', 'price');
+        $data = $request->only('name', 'description', 'price');
         $data['slug'] = Str::slug($request->name . ' ' . time());
         if ($request->has('image')) {
             $file_path = Upload::uploadFile($request->image, 'Product');
             $data['image'] = 'storage/' . $file_path;
         }
         $bundle = Bundle::create($data);
-        $bundle->bundleProducts()->createMany($request->products);
+        if ($request->has('products')){
+            $bundle->bundleProducts()->createMany($request->products);
+        }
 
         return response()->json(['message' => "Bundle Created Successfully"]);
     }
@@ -95,10 +97,23 @@ class BundleController extends Controller
         return response()->json(['message' => "Bundle Deleted Successfully"]);
     }
 
-    public function removeBundleProducts($id){
+    public function removeBundleProducts($id)
+    {
         $product = BundleProduct::findOrFail($id);
         $product->delete();
 
         return response()->json(['message' => "Product Removed From Bundle"]);
+    }
+
+    public function addToBundle(Request $request)
+    {
+        $this->validate($request, [
+            'bundle_id' => ['required', 'exists:bundles,id'],
+            'product_id' => ['required', 'exists:products,id'],
+            'qty' => ['required', 'int'],
+        ]);
+        BundleProduct::create($request->all());
+
+        return response()->json(['message' => "Product Added to Bundle!"]);
     }
 }
