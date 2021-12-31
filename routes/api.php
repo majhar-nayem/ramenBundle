@@ -53,7 +53,7 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin'], function () {
     Route::delete('sub-image/{id}', [ProductController::class, 'subImageDelete']);
     Route::apiResource('bundles', BundleController::class);
     Route::post('add-product-to-bundle', [BundleController::class, 'addToBundle']);
-    Route::get('remove-from-bundle/{id}', [BundleController::class, 'removeBundleProducts']);
+    Route::delete('remove-from-bundle/{id}', [BundleController::class, 'removeBundleProducts']);
     Route::apiResource('coupons', CouponController::class);
 
     Route::apiResource('orders', OrderController::class);

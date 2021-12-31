@@ -21,11 +21,16 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->page = 0) {
-            $product = Product::latest()->get();
-        } else {
-            $product = Product::latest()->paginate(20);
-        }
+        if ($request->has('search_key')) {
+            $product = Product::where('product_code', $request->search_key)
+                ->orWhere('title', 'LIKE', "%$request->search_key%")
+                ->get();
+        } else
+            if ($request->page = 0) {
+                $product = Product::latest()->get();
+            } else {
+                $product = Product::latest()->paginate(20);
+            }
 
         return ProductResource::collection($product);
     }
@@ -47,12 +52,12 @@ class ProductController extends Controller
         $product = Product::create($data);
         if ($request->has('sub_images') && count($request->sub_images) > 0) {
             $img_arr = [];
-            foreach ($request->sub_images as $image){
+            foreach ($request->sub_images as $image) {
                 $file_path = Upload::uploadFile($image['image'], 'ProductSubImage');
                 $img_arr[] = [
-                  'product_id' => $product->id,
-                  'image' => 'storage/'. $file_path,
-                  'note' => $image['note'] ?? null
+                    'product_id' => $product->id,
+                    'image' => 'storage/' . $file_path,
+                    'note' => $image['note'] ?? null
                 ];
             }
             ProductImage::insert($img_arr);
@@ -93,11 +98,11 @@ class ProductController extends Controller
         $product->update($data);
         if ($request->has('sub_images') && count($request->sub_images) > 0) {
             $img_arr = [];
-            foreach ($request->sub_images as $image){
+            foreach ($request->sub_images as $image) {
                 $file_path = Upload::uploadFile($image['image'], 'ProductSubImage');
                 $img_arr[] = [
                     'product_id' => $product->id,
-                    'image' => 'storage/'. $file_path,
+                    'image' => 'storage/' . $file_path,
                     'note' => $image['note'] ?? null
                 ];
             }
