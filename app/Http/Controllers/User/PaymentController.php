@@ -22,7 +22,7 @@ class PaymentController extends Controller
             $provider = new PayPal;
             $provider->getAccessToken();
             $bundle_name = $order->bundle->name;
-            $response = $provider->addProduct($bundle_name, $order->bundle->description, 'SERVICE', 'SOFTWARE')
+            $response = $provider->addProduct($bundle_name, $order->bundle->description, 'PHYSICAL', 'ECOMMERCE_SERVICES')
                 ->addPlanTrialPricing('DAY', 7)
                 ->addMonthlyPlan($order->bundle->name, "Order", $order->grand_total)
                 ->setupSubscription($order->user->name, $order->user->email, now()->addMinute());
