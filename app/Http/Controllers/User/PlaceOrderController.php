@@ -29,7 +29,7 @@ class PlaceOrderController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(StoreOrderRequest $request)
@@ -40,7 +40,7 @@ class PlaceOrderController extends Controller
         $data['user_id'] = Auth::id();
         $coupon = Coupon::find($request->coupon_id) ?? Coupon::where('code', $request->coupon_code)->first();
         $data['grand_total'] = (new CalculateGrandTotal())($bundle, $coupon);
-       $order = Order::create($data);
+        $order = Order::create($data);
 
         return response()->json([
             'message' => "Order Created Successfully!",
@@ -51,7 +51,7 @@ class PlaceOrderController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return OrderResource
      */
     public function show($id)
@@ -63,8 +63,8 @@ class PlaceOrderController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -75,7 +75,7 @@ class PlaceOrderController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
