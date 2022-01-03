@@ -14,11 +14,11 @@ class PaymentController extends Controller
 {
     public function pay(Request $request)
     {
-        $order = Order::with(['bundle', 'coupon', 'user'])->findOrFail($request->order_id);
-        if ($order->user_id != Auth::id()) {
-            return response()->json(['message' => "Invalid Order"]);
-        }
-        try {
+        $order = Order::with(['bundle', 'coupon', 'user'])
+            ->where('user_id', Auth::id())
+            ->findOrFail($request->order_id);
+
+//        try {
             $provider = new PayPal;
             $provider->getAccessToken();
             $bundle_name = $order->bundle->name;
@@ -34,9 +34,9 @@ class PaymentController extends Controller
                 'status' => $response['status']
             ]);
            //return $provider->activateSubscription($response['id'], "$bundle_name Subscription Payment Activate");
-        }catch (\Exception $exception){
-        return response()->json(["message" => "Something Went Wrong!"],500);
-        }
+//        }catch (\Exception $exception){
+//        return response()->json(["message" => "Something Went Wrong!"],500);
+//        }
 
         return $response;
     }
