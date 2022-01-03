@@ -26,10 +26,10 @@ class UpdateCouponRequest extends FormRequest
         return [
             'start_at' => 'date',
             'end_at' => ['date', 'after:start_at'],
-            'max_limit' => 'int',
-            'user_limit' => 'int',
-            'min_order_amount' => 'int',
-            'max_discount_amount' => 'int',
+            'max_limit' => 'integer',
+            'user_limit' => 'integer',
+            'min_order_amount' => 'integer',
+            'max_discount_amount' => 'integer',
         ];
     }
 }
