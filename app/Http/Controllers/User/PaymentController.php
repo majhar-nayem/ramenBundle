@@ -18,7 +18,7 @@ class PaymentController extends Controller
             ->where('user_id', Auth::id())
             ->findOrFail($request->order_id);
 
-        try {
+//        try {
             $provider = new PayPal;
             $provider->getAccessToken();
             $bundle_name = $order->bundle->name;
@@ -34,9 +34,9 @@ class PaymentController extends Controller
                 'status' => $response['status']
             ]);
            //return $provider->activateSubscription($response['id'], "$bundle_name Subscription Payment Activate");
-        }catch (\Exception $exception){
-        return response()->json(["message" => "Something Went Wrong!"],500);
-        }
+//        }catch (\Exception $exception){
+//        return response()->json(["message" => "Something Went Wrong!"],500);
+//        }
 
         return $response;
     }
