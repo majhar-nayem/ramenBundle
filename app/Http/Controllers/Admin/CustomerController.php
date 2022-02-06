@@ -24,7 +24,7 @@ class CustomerController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -35,7 +35,7 @@ class CustomerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return CustomerResource
      */
     public function show($id)
@@ -48,23 +48,36 @@ class CustomerController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'string',
+            'phone' => ['string', 'unique:users,id,' . $id],
+            'email' => ['string', 'unique:users,id,' . $id]
+        ]);
+
+        $customer = User::findOrFail($id);
+        $customer->update($request->all());
+
+        return response()->json(['message' => "Customer Info Updated"]);
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
-        //
+        $customer = User::findOrFail($id);
+        $customer->delete();
+
+        return response()->json(['message' => "Customer Deleted!"]);
     }
 }
